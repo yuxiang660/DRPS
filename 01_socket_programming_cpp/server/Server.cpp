@@ -42,8 +42,10 @@ void Server::bind(uint32_t port)
     }
 }
 
-void Server::listen(int32_t backlog)
+void Server::listen(uint32_t port, int32_t backlog)
 {
+    bind(port);
+    
     if (::listen(server, backlog) < 0)
     {
         printf("Error - server listen: %s\n", strerror(errno));

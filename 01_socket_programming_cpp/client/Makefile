@@ -6,7 +6,7 @@ LFLAGS=
 
 SRCS:=$(wildcard *.cpp)
 OBJS=$(SRCS:%.cpp=%.o)
-BIN:=clientApp
+BIN:=clientApp.out
 
 all: $(BIN)
 

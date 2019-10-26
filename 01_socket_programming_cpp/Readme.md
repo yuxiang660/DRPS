@@ -3,8 +3,7 @@
 * Server
     - constructor : open a socket for server
     - destructor : close the server socket
-    - bind : bind the server socket with server address
-    - listen : listen for connections on the socket
+    - listen : listen for connections on a port
     - accept : accept a connection on the socket
 
 * Connection

@@ -11,19 +11,16 @@ int main(int argc, char const *argv[])
     // 1. create a server by opening a socket.
     Server server;
 
-    // 2. bind the server socket to the port.
-    server.bind(port);
+    // 2. listen for connections on the port with the server socke.
+    server.listen(port, serverBacklog);
 
-    // 3. listen at the binded address with the server socke.
-    server.listen(serverBacklog);
-
-    // 4. block for the connection from clients.
+    // 3. block for the connection from clients.
     auto connection = server.accept();
 
-    // 5. receive a message from the client.
+    // 4. receive a message from the client.
     std::cout << "server receives message from the client: " << connection->receive() << std::endl;
 
-    // 6. send a message to the client.
+    // 5. send a message to the client.
     std::cout << "server sends message to client: " << serverMessage << std::endl;
     connection->send(serverMessage);
     
