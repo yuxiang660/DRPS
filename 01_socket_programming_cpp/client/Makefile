@@ -1,4 +1,4 @@
-.PHONY: all clean
+.PHONY: all debug clean
 
 CC=g++
 CFLAGS=
@@ -9,6 +9,10 @@ OBJS=$(SRCS:%.cpp=%.o)
 BIN:=clientApp.out
 
 all: $(BIN)
+
+debug: CFLAGS+=-g
+debug: LFAGS+=-g
+debug: $(BIN)
 
 %.o: %.cpp
 	$(CC) $(CFLAGS) -c $^ -o $@
