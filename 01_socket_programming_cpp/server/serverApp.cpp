@@ -4,7 +4,7 @@
 
 static const uint32_t port = 8080;
 static const int32_t serverBacklog = 3;
-const char* serverMessage = "hello from server";
+const char* serverMessage = "你好 from server";
 
 int main(int argc, char const *argv[])
 {

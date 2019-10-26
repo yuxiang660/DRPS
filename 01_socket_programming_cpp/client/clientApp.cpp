@@ -4,7 +4,7 @@
 
 static const char* ip = "127.0.0.1";
 static const uint32_t port = 8080;
-static const char* clientMessage = "hello from client";
+static const char* clientMessage = "你好 from client";
 
 int main(int argc, char const *argv[])
 {
