@@ -1,10 +1,20 @@
 #include "Server.h"
-#include <string.h>
+#include "Connection.h"
+#include <unistd.h>
 #include <iostream>
+#include <memory>
 
 static const uint32_t port = 8080;
 static const int32_t serverBacklog = 3;
 const char* serverMessage = "你好 from server";
+
+void process(std::shared_ptr<Connection> connection)
+{
+    std::cout << "server receives message from the client: " << connection->receive() << std::endl;
+
+    std::cout << "server sends message to client: " << serverMessage << std::endl;
+    connection->send(serverMessage);
+}
 
 int main(int argc, char const *argv[])
 {
@@ -15,14 +25,17 @@ int main(int argc, char const *argv[])
     server.listen(port, serverBacklog);
 
     // 3. block for the connection from clients.
-    auto connection = server.accept();
+    while (1)
+    {
+        auto connection = server.accept();
 
-    // 4. receive a message from the client.
-    std::cout << "server receives message from the client: " << connection->receive() << std::endl;
+        pid_t fpid = fork();
 
-    // 5. send a message to the client.
-    std::cout << "server sends message to client: " << serverMessage << std::endl;
-    connection->send(serverMessage);
+        if (!fpid)
+        {
+            process(connection);
+        }
+    }
     
     return 0;
 }
