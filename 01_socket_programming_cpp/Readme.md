@@ -1,3 +1,28 @@
+This project is object-oriented socket programming for server-client programs.
+
+# Available Scripts
+
+* Build both server and client
+```
+/> make
+```
+
+* Build server
+```
+/> make server
+```
+
+* Build client
+```
+/> make client
+```
+
+* Build debug programs for gdb
+```
+/> make debug
+```
+
+
 # Classes
 
 * Server
