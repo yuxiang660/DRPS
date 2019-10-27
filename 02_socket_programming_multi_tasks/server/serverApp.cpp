@@ -1,19 +1,24 @@
 #include "Server.h"
 #include "Connection.h"
-#include <unistd.h>
 #include <iostream>
 #include <memory>
+#include <thread>
 
 static const uint32_t port = 8080;
 static const int32_t serverBacklog = 3;
 const char* serverMessage = "你好 from server";
 
-void process(std::shared_ptr<Connection> connection)
+void workerMain(std::shared_ptr<Connection> connection)
 {
     std::cout << "server receives message from the client: " << connection->receive() << std::endl;
 
     std::cout << "server sends message to client: " << serverMessage << std::endl;
     connection->send(serverMessage);
+}
+
+void startWorker(std::shared_ptr<Connection> connection)
+{
+    std::thread* workerThread = new std::thread(workerMain, connection);
 }
 
 int main(int argc, char const *argv[])
@@ -28,13 +33,7 @@ int main(int argc, char const *argv[])
     while (1)
     {
         auto connection = server.accept();
-
-        pid_t fpid = fork();
-
-        if (!fpid)
-        {
-            process(connection);
-        }
+        startWorker(connection);
     }
     
     return 0;
