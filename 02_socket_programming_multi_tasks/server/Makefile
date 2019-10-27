@@ -2,7 +2,7 @@
 
 CC=g++
 CFLAGS=
-LFLAGS=
+LFLAGS=-pthread
 
 SRCS:=$(wildcard *.cpp)
 OBJS=$(SRCS:%.cpp=%.o)
@@ -11,14 +11,14 @@ BIN:=serverApp.out
 all: $(BIN)
 
 debug: CFLAGS+=-g
-debug: LFAGS+=-g
+debug: LFLAGS+=-g
 debug: $(BIN)
 
 %.o: %.cpp
 	$(CC) $(CFLAGS) -c $^ -o $@
 
 $(BIN): $(OBJS)
-	$(CC) $(LFAGS) $^ -o $@
+	$(CC) $(LFLAGS) $^ -o $@
 
 clean:
 	@echo "Cleaning up..."
