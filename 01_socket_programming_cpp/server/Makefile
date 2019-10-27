@@ -4,8 +4,10 @@ CC=g++
 CFLAGS=
 LFLAGS=
 
+OBJ_DIR=./objects
+
 SRCS:=$(wildcard *.cpp)
-OBJS=$(SRCS:%.cpp=%.o)
+OBJS=$(SRCS:%.cpp=$(OBJ_DIR)/%.o)
 BIN:=serverApp.out
 
 all: $(BIN)
@@ -14,7 +16,8 @@ debug: CFLAGS+=-g
 debug: LFLAGS+=-g
 debug: $(BIN)
 
-%.o: %.cpp
+$(OBJ_DIR)/%.o: %.cpp
+	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) -c $^ -o $@
 
 $(BIN): $(OBJS)
@@ -22,4 +25,4 @@ $(BIN): $(OBJS)
 
 clean:
 	@echo "Cleaning up..."
-	@rm -rvf *.o $(BIN)
+	@rm -rvf *.o $(BIN) $(OBJ_DIR)
